@@ -1,0 +1,26 @@
+.chatbox_outgoing{
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    padding: 5px;
+    min-width: 50px;
+    max-width: 500px;
+    width: fit-content;
+    word-break: break-all;
+}
+
+.chatbox_incoming{
+    color: white;
+    background-color: grey;
+    border-radius: 5px;
+    padding: 5px;
+    min-width: 50px;
+    max-width: 500px;
+    width: fit-content;
+    word-break: break-all;
+}
+
+header{
+    background-image: linear-gradient(to bottom, red, orange);
+}
+
