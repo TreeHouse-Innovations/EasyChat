@@ -45,8 +45,5 @@ function ask_button_clicked(){
         });
     }
 }
-<<<<<<< HEAD
 
 ask_button.addEventListener("click", ask_button_clicked);
-=======
->>>>>>> 4f470b0ee930315788fcce8a872c0973e6410ea8
