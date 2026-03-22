@@ -1,24 +1,23 @@
 import {LLM} from "./llm.js/llm.js";
 
+const progress_bar = document.getElementById("progress_bar");
+const prompt_input = document.getElementById("prompt");
+const ask_button = document.getElementById("ask_button");
+const chat_container = document.getElementById("chat_container");
 let loaded = false;
-let text_prompt = "### Instruction: "+document.getElementById("prompt").value+"### Response:";
-console.log("App started.");
 let last_response;
-let progress_bar = document.getElementById("progress_bar");
-
-progress_bar.hidden = false;
-document.getElementById("ask_button").disabled = true;
-document.getElementById("prompt").disabled = true;
+let text_prompt = "### Instruction: "+prompt_input.value+"### Response:";
 
 const on_loaded = () => {
     loaded = true;
-    document.getElementById("prompt").disabled = false;
+    prompt_input.disabled = false;
     progress_bar.hidden = true;
     ask_button.disabled = false;
 }
+
 const result_write = (text) => {last_response=text};
-const completed = () => {document.getElementById("chat_container").innerHTML += "<p class='chatbox_incoming'>AI: "+last_response.split("<|endoftext|>")[0]+"</p>"};
-const ask_button = document.getElementById("ask_button");
+
+const completed = () => {chat_container.textContent += "<p class='chatbox_incoming'>AI: "+last_response.split("<|endoftext|>")[0]+"</p>"};
 
 const model = new LLM(
     "GGUF_CPU",
@@ -28,14 +27,18 @@ const model = new LLM(
     completed
 );
 
+//Disable inputs and show loading bar
+progress_bar.hidden = false;
+ask_button.disabled = true;
+text_prompt.disabled = true;
+
 model.load_worker();
 
-ask_button.addEventListener("click", function() {
-    text_prompt = "### Instruction: "+document.getElementById("prompt").value+"### Response:";
-    document.getElementById("chat_container").innerHTML += "<p class='chatbox_outgoing'>You: "+document.getElementById("prompt").value+"<p>";
-    document.getElementById("prompt").value = "";
+function ask_button_clicked(){
+    text_prompt = "### Instruction: "+prompt_input.value+"### Response:";
+    chat_container.textContent += "<p class='chatbox_outgoing'>You: "+prompt_input.value+"<p>";
+    prompt_input.value = "";
     if(loaded){
-
         model.run({
             prompt: text_prompt,
             top_k: 1
