@@ -30,7 +30,7 @@ const model = new LLM(
 //Disable inputs and show loading bar
 progress_bar.hidden = false;
 ask_button.disabled = true;
-text_prompt.disabled = true;
+prompt_input.disabled = true;
 
 model.load_worker();
 
