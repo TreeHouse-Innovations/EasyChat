@@ -17,7 +17,7 @@ const on_loaded = () => {
 
 const result_write = (text) => {last_response=text};
 
-const completed = () => {chat_container.textContent += "<p class='chatbox_incoming'>AI: "+last_response.split("<|endoftext|>")[0]+"</p>"};
+const completed = () => {chat_container.innerHTML += "<p class='chatbox_incoming'>AI: "+last_response.split("<|endoftext|>")[0]+"</p>"};
 
 const model = new LLM(
     "GGUF_CPU",
@@ -36,7 +36,7 @@ model.load_worker();
 
 function ask_button_clicked(){
     text_prompt = "### Instruction: "+prompt_input.value+"### Response:";
-    chat_container.textContent += "<p class='chatbox_outgoing'>You: "+prompt_input.value+"<p>";
+    chat_container.innerHTML += "<p class='chatbox_outgoing'>You: "+prompt_input.value+"<p>";
     prompt_input.value = "";
     if(loaded){
         model.run({
